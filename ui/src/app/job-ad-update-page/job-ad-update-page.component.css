@@ -1,0 +1,38 @@
+.back-button {
+    margin-bottom: 2rem;
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.job-title-input {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.job-description-textarea {
+    min-height: 300px;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+.success-message {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: #4caf50;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

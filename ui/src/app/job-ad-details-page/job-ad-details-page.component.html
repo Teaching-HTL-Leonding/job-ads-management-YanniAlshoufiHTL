@@ -1,0 +1,20 @@
+<article>
+    <a routerLink="/" class="back-button">← Back to Jobs</a>
+
+    <h1>{{ jobAd()?.title }}</h1>
+
+    <div class="language-switcher">
+        <select [(ngModel)]="selectedLanguage">
+            <option value="en">English</option>
+            @for (translation of jobAd()?.translations ?? []; track translation) {
+            <option [value]="translation.language">
+                {{ translation.language }}
+            </option>
+            }
+        </select>
+    </div>
+
+    <p>
+        {{ currentTranslation() }}
+    </p>
+</article>
