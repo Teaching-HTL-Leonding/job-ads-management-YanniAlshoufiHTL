@@ -1,0 +1,48 @@
+.back-button {
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.title-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.job-title-input {
+    font-size: 2rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.edit-button {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--color-text);
+}
+
+.edit-button.small {
+    padding: 0.25rem 0.5rem;
+}
+
+.edit-button:hover {
+    scale: 1.5;
+}
+
+p {
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.edit-all-button {
+    width: fit-content;
+    margin-left: auto;
+    align-self: center;
+}

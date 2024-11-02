@@ -1,0 +1,14 @@
+<article>
+    <form (submit)="onSubmit()">
+        <a routerLink="/" class="back-button">← Back to job listings</a>
+
+        <input type="text" [(ngModel)]="newTitle" name="title" class="job-title-input" />
+        <textarea [(ngModel)]="newTextEN" name="textEN" class="job-description-textarea"></textarea>
+
+        <button type="submit" class="update-button">Update</button>
+    </form>
+
+    @if (shouldShowSuccess()) {
+    <div class="success-message" @slideInOut>Successfully updated!</div>
+    }
+</article>

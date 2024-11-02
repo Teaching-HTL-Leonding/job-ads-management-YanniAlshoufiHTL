@@ -1,0 +1,107 @@
+<article>
+    <div class="grid">
+        <a routerLink="/" class="back-button">← Back to Jobs</a>
+        <a role="button" [routerLink]="['/job', jobAd()?.id, 'edit']" class="edit-all-button">
+            Edit
+        </a>
+    </div>
+
+    @if (isEditingTitle()) {
+    <form (ngSubmit)="saveTitle()">
+        <input
+            type="text"
+            [(ngModel)]="newTitle"
+            name="title"
+            class="job-title-input"
+            #titleInput
+        />
+        <button type="submit">✓</button>
+    </form>
+    } @else {
+    <div class="title-container grid">
+        <h1 (dblclick)="startEditingTitle()">{{ jobAd()?.title }}</h1>
+        <button class="edit-button small" (click)="startEditingTitle()">✎</button>
+    </div>
+    }
+
+    <div class="language-switcher">
+        <select [(ngModel)]="selectedLanguage">
+            <option value="en">English</option>
+            @for (translation of jobAd()?.translations ?? []; track $index) {
+            <option [value]="translation.language">
+                {{ translation.language }}
+            </option>
+            }
+        </select>
+    </div>
+
+    <p>
+        {{ currentTranslation() }}
+    </p>
+
+    @if (isAddingTranslation()) {
+    <form (submit)="saveNewTranslation()" class="add-translation-form">
+        <div class="grid">
+            <input
+                type="text"
+                [(ngModel)]="newTranslationLanguage"
+                name="language"
+                placeholder="Language code (e.g. fr, es, de)"
+                required
+            />
+            <textarea
+                [(ngModel)]="newTranslationText"
+                name="text"
+                rows="5"
+                placeholder="Translation text"
+                required
+            ></textarea>
+            <div class="button-group">
+                <button
+                    type="button"
+                    (click)="autoTranslate()"
+                    [disabled]="!newTranslationLanguage"
+                >
+                    Auto-Translate
+                </button>
+                <button type="submit">Save</button>
+                <button type="button" (click)="cancelAddTranslation()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    } @else if (isDeletingTranslation()) {
+    <form (submit)="deleteTranslation()" class="delete-translation-form">
+        <div class="grid">
+            <select [(ngModel)]="translationToDelete" name="translationToDelete" required>
+                <option value="">Select language to delete</option>
+                @for (translation of jobAd()?.translations ?? []; track $index) {
+                <option [value]="translation.language">
+                    {{ translation.language }}
+                </option>
+                }
+            </select>
+            <div class="button-group">
+                <button type="submit" class="delete-button" [disabled]="!translationToDelete">
+                    Delete Translation
+                </button>
+                <button type="button" (click)="cancelDeleteTranslation()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    } @else if (!jobAd()?.translations?.length) {
+    <div class="button-group">
+        <button (click)="startAddTranslation()" class="add-translation-button">
+            Add Translation
+        </button>
+    </div>
+    } @else {
+    <div class="button-group">
+        <button (click)="startAddTranslation()" class="add-translation-button">
+            Add Translation
+        </button>
+        <button (click)="startDeleteTranslation()" class="delete-translation-button">
+            Delete Translation
+        </button>
+    </div>
+    }
+</article>
