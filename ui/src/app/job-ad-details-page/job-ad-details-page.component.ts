@@ -16,6 +16,8 @@ export class JobAdDetailsPageComponent {
 
     protected readonly jobAd = signal<JobAd | undefined>(undefined);
     protected readonly selectedLanguage = signal<string>('en');
+    protected readonly isEditingTitle = signal<boolean>(false);
+    protected newTitle = '';
 
     protected readonly currentTranslation = computed(() =>
         this.selectedLanguage() === 'en'
@@ -26,5 +28,20 @@ export class JobAdDetailsPageComponent {
 
     async ngOnInit() {
         this.jobAd.set(await this.jobService.getJobAd(this.route.snapshot.params['id']));
+    }
+
+    protected startEditingTitle() {
+        this.newTitle = this.jobAd()?.title ?? '';
+        this.isEditingTitle.set(true);
+    }
+
+    protected async saveTitle() {
+        if (!this.jobAd()) return;
+
+        await this.jobService.updateJobAd(this.jobAd()!.id, this.newTitle, this.jobAd()!.textEN);
+
+        const updatedJob = await this.jobService.getJobAd(this.jobAd()!.id);
+        this.jobAd.set(updatedJob);
+        this.isEditingTitle.set(false);
     }
 }
